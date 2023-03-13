@@ -18,10 +18,11 @@ In order to run the application please use the following steps:
    - gradle / gradle wrapper
 2. Clone the repository to your local directory
 3. You can either import this project into your favourite IDEA (IntelliJ of course) or start the application from the commandline using ./gradlew run
-4. First start the database by running 'docker-compose up -d' from the /local/ folder
-5. Once you have decided which way to run the application please run the application with the following environment variables: DB_NAME=postgres;DB_PASSWORD=123;DB_PORT=5432;DB_USERNAME=postgres
-6. You should now be able to access the api on 'http://localhost:8080' or if you like navigate to 'http://localhost:8080/graphiql' in your browser to use the convenient interface provided by graphQL
-7. The database can be accessed on 'http://localhost:5432' using the credentials provided above.
+4. Build the application runing the ./gradlew build task (either from your IDEA or command-line)
+5. First start the database by running 'docker-compose up -d' from the /local/ folder
+6. Once you have decided which way to run the application please run the application with the following environment variables: DB_NAME=postgres;DB_PASSWORD=123;DB_PORT=5432;DB_USERNAME=postgres
+7. You should now be able to access the api on 'http://localhost:8080' or if you like navigate to 'http://localhost:8080/graphiql' in your browser to use the convenient interface provided by graphQL
+8. The database can be accessed on 'http://localhost:5432' using the credentials provided above.
  
 
 ## Calling the api
