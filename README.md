@@ -5,6 +5,8 @@ Below I will outline the following things:
 - Architectural design decisions
 - What I would have liked to improve.
 
+If you have any questions after reading this document please do not hesitate to contact me directly.
+
 
 ## How to run the application
 In order to run the application please use the following steps:
