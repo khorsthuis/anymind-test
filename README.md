@@ -26,7 +26,7 @@ In order to run the application please use the following steps:
 
 ## Calling the api
 
-When everything has started running successfully, the following queries can be executed at 'http://localhost:8080' to retrieve the required responses:
+When everything has started running successfully, the following queries can be executed at 'http://localhost:8080' or 'http://localhost:8080/graphiql' to retrieve the required responses:
 
 ### Retrieving all supported payment methods:
 ```
