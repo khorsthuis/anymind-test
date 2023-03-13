@@ -13,19 +13,19 @@ services:
     volumes:
       - ./db/create-anymind-db.sql:/docker-entrypoint-initdb.d/create-anymind.sql
 
-  anymind-api:
-    pull_policy: build
-    build:
-      context: ../
-    ports:
-      - "8080:8080"
-    depends_on:
-      postgres-db:
-        condition: service_started
-    environment:
-      DOCKER_LOCAL_HOST: host.docker.internal
-      DB_HOST: DB_HOST
-      DB_NAME: ${DB_NAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_PORT: ${DB_PORT}
-      DB_USERNAME: ${DB_USERNAME}
+#  anymind-api:
+#    pull_policy: build
+#    build:
+#      context: ../
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      postgres-db:
+#        condition: service_started
+#    environment:
+#      DOCKER_LOCAL_HOST: host.docker.internal
+#      DB_HOST: DB_HOST
+#      DB_NAME: ${DB_NAME}
+#      DB_PASSWORD: ${DB_PASSWORD}
+#      DB_PORT: ${DB_PORT}
+#      DB_USERNAME: ${DB_USERNAME}
