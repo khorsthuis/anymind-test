@@ -1,0 +1,55 @@
+scalar DateTime
+
+##################################### Queries #####################################
+# Queries for retrieving the following:
+#   - supported payment methods
+#   - all historical sales
+#   - historical sales between two provided dates
+type Query{
+    paymentMethods: [PaymentMethod],
+    sales: [HistoricalSale]
+    getSales(startDateTime: DateTime, endDateTime: DateTime): [HistoricalSale]
+}
+
+##################################### Available payment-methods #####################################
+type PaymentMethod{
+    method: String,
+    priceModifierLower: Float,
+    priceModifierUpper: Float,
+    pointsApplicable: Float
+}
+##################################### Historical sales data #####################################
+# retrieving the historical sales
+type HistoricalSale{
+    datetime: DateTime,
+    sales: Float,
+    points: Int
+}
+
+##################################### mutation of new-sale #####################################
+# Mutation that creates a new sale
+type Mutation{
+    addSale(sale: NewSale): NewSaleReturn
+}
+#
+input NewSale{
+    price: Float!,
+    priceModifier: Float!,
+    paymentMethod: String!,
+    datetime: DateTime
+}
+
+# Union type to be able to handle both a successful mutation as well as provide error-message on non-successful mutation
+union NewSaleReturn = Sale | NewSaleReturnFailedPayload
+
+# unsuccessful payload which returns error message
+type NewSaleReturnFailedPayload{
+    errorMessage: String!
+}
+# type that is returned with successful sale mutation
+type Sale{
+    finalPrice: Float!,
+    points: Int!
+}
+
+
