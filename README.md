@@ -1,7 +1,9 @@
-Welcome to this project that serves as a technical evaluation for the role of senior-back-end dev at Anymind.
+Welcome to this project that serves as a technical evaluation for the role of senior-back-end dev at Anymind. This is my
+first time to develop an api using GraphQl. In the past I have only worked on Restfull Api's.
 
 Below I will outline the following things:
 - How to run the application
+- Calling the api
 - Architectural design decisions
 - What I would have liked to improve.
 
@@ -22,17 +24,80 @@ In order to run the application please use the following steps:
 7. The database can be accessed on 'http://localhost:5432' using the credentials provided above.
  
 
+## Calling the api
+
+When everything has started running successfully, the following queries can be executed at 'http://localhost:8080' to retrieve the required responses:
+
+### Retrieving all supported payment methods:
+```
+query{
+  paymentMethods{
+    
+    method,
+    priceModifierLower,
+    priceModifierUpper,
+    pointsApplicable
+  }
+}
+```
+
+### Retrieving all historical sales:
+```
+query{
+  sales{
+    datetime,
+    sales
+    points
+  }
+}
+```
+
+### Retrieving sales between two dates:
+```
+query{
+  getSales(startDateTime: "2023-03-09T15:46:26.851+09:00",
+    endDateTime:"2023-03-09T15:47:01.055+09:00"){
+      datetime,
+      sales
+      points
+  }
+}
+```
+
+### Adding a new sale:
+```
+mutation{
+  addSale(sale: {
+    price: 10000.0,
+    priceModifier: 0.95,
+    paymentMethod: "Cash",
+    datetime: "2022-09-01T00:01:00Z"
+  })
+  {
+    ...on Sale{
+      finalPrice,
+      points
+    }
+    ...on NewSaleReturnFailedPayload{
+      errorMessage
+    } 
+  }
+}
+```
+The `... on Sale` and `... on NewSaleReturnFailedPayload` are required to retrieve either the sale-information or the 
+error message if the mutation was not successful.
+
 ## Architectural design decisions:
 In this part I would like to clarify some of the decisions I've made in designing and creating this example application.
 In order to reduce confusion I will summarize these decisions by their relative domains
 ### Database:
-As outlined I used Postgres as a db type. I chose to run the databse within a docker-container so it would allow for easy 
+As outlined I used Postgres as a db type. I chose to run the database within a docker-container so it would allow for easy 
 startup and interaction with any database client.
 
 the database initialization script found in "/local/db/" creates the required tables.
 - tables were created without nullable fields to guarantee data-consistency
 - enum-type was created for payment-type to reduce accidental incorrect input on db level (even though checks are made throughout application itself)
-- Default timestamp set to now() on db level even though it is also handeled in the application
+- Default timestamp set to now() on db level even though it is also handled in the application
 - pre-populating payment_methods table with relevant values
 
 ### Repository - level:
@@ -61,7 +126,7 @@ Also, this is my first time using GraphQl so, I know there is plenty of room for
 ## What I would have liked to improve.
 
 ### Docker-compose:
-I have started to create a docker-compose file in order to easily containerize the application. In it's current form the 
+I have started to create a docker-compose file in order to easily containerize the application. In its current form the 
 containerisation does not function as the api-application is not able to find the database. I did spend some time trying to 
 debug why this was happening, but decided to give up as it was costing me too much time, even though I believe I
 was almost there.
