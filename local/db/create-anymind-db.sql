@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS sales(
 	CONSTRAINT sales_pk PRIMARY KEY(id)
 );
 
--- truncate table if not yet empty
+-- truncate table payment methods to ensure values are not inserted twice
 TRUNCATE TABLE payment_methods;
 
 -- insert defaults into payment_methods
