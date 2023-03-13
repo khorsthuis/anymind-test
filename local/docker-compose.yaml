@@ -23,9 +23,6 @@ services:
       postgres-db:
         condition: service_started
     environment:
-      # SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/postgres
-      # SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
-      # SPRINT_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       DOCKER_LOCAL_HOST: host.docker.internal
       DB_HOST: DB_HOST
       DB_NAME: ${DB_NAME}
